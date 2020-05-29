@@ -227,21 +227,21 @@ y dentro del archivo .babelrc agregamos:
 
 Esto habilita las transformaciones para ES2015 +
 
-#PASO A PASO
+# PASO A PASO
 
-##1. Creamos un Package JSON
+## 1. Creamos un Package JSON
 ~~~
 
   npm init -y
 
 ~~~
-##2. Se crea el archivo en la raiz packaje.json
+## 2. Se crea el archivo en la raiz packaje.json
 ~~~
 
  Este archivo contiene la configuración de nuestro proyecto.
 
 ~~~
-##3. Creamos la estructura de nuestro proyecto
+## 3. Creamos la estructura de nuestro proyecto
 ~~~
 
  Para esto creamos una carpete `src` en la raiz del proyecto, esta carpeta puede contener nuestro `index.html` o nuestra carpeta `app` que contendría todo el Javascript de nuestro proyecto, como por ejemplo `index.js` archivo que contendra todo nuestro Javascript moderno. Esta carpeta `src` no ira a producción. Sólo estara presente en desarollo.
