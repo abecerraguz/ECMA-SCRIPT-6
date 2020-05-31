@@ -250,15 +250,220 @@ Esto habilita las transformaciones para ES2015 +
 
 
 
+# Creamos un Package JASON
+
+~~~
+  npm init -y
+~~~
+
+1. Se crea el archivo en la raiz `packaje.json`, este archivo contiene la configuración de nuestro proyecto.
+
+2. Luego creamos la estructura de nuestro proyecto, para esto creamos una carpete `src` en la raiz del proyecto, esta carpeta puede contener nuestro `index.html` o nuestra carpeta `app` que contendría todo el javascript de nuestro proyecto, como por ejemplo `index.js` archivo que contendra todo nuestro javascript moderno. Esta carpeta `src` no ira a Producción. Sólo estara presente en Desarollo.
+
+3. Ahora nos vamos a enfocar en el archivo `package.json`, en este archivo vamos a listar todo lo que necesitamos, para esto debemos realizar instalación a traves de lotes de consola.
+
+4. Para poder instalar los paquetes de `Node Package Module` se realiza de la siguiente forma:
+
+~~~
+   npm install o resumido npm i.
+~~~
+
+5. Paquetes que requerimos:
+
+*	Webpack es un empaquetador de Modulo, podemos tener un servidor de desarro, te permite tomar los archivos del Front End como HTML, CSS, SASS, JAVASCRIPT, Imagenes y llevarlas de producción a Desarrollo. [IR A WEB PACK](https://webpack.js.org/)
+
+*	Entonces instalaremos Webpack y otras dependencias como webpack-cli con eso estamos listos con Webpack, pero necesitamos Babel, para instalar babel debemos ir [IR A LA URL DE BABEL](https://babeljs.io) , luego iremos a la sección de Docs y luego iremos a la opción de "User Guide", en esta opción debemos instalar , `@babel/core`, `@babel/cli`, `@babel/preset-env`, el primero es en si babel, el segundo `@babel/cli` `npm i webpack webpack-cli` es la forma que tenemos para interactuar con babel desde la terminal, el ultimo es la forma que nos permite escribir con los ultimos estandares de Javascript o sea podemos trabajar con importar clases funciones de flecha etc. Ojo como estamos instalando Webpack.
+
+*	Tambien podemos instalar `async/await` para trabajar con funciones asincronas como Fetch. Para poder trabajar webpack con babel debemos instalar babel-loader, con esto ya tendriamos para trabajar con JavaScript Moderno. Pero podemos agregar otros plugins, por ejemplo cuando pasemos nuestro poryecto de producción a desarrollo necesitaremos que nuestro Html se minifique para esto se debe instalar otro modulo `html-webpack-plugin` y para finalizar necesitamos un servidor de desarrollo para esto debemos agregar "webpack-dev-server". Con esto ya tememos todos nuestros modulos requeridos.
+
+~~~
+		npm i webpack webpack-cli @babel/core @babel/preset-env @babel/polyfill babel-loader html-webpack-plugin webpack-dev-server
+~~~
+
+6. Ahora necesitamos configurar nuestro proyecto para esto en la raiz creamos un archivo llamado
+   webpack.config.js , esto es para configurar a webpack.
+
+7. También debemos configurar a babel para esto hay varias formas pero lo realizaremos creando el archivo
+ .babelrc , ambos archivos me serviaran para configurar webpack y babel.
+
+~~~
+   webpack.config.js
+
+    const path = require('path')
+	module.exports = {
+		entry:{
+			app:'./src/app/index.js'
+		},
+		output:{
+			path: path.resolve(__dirname, 'build'),
+			filename: 'app.bundle.js'
+		}
+	}
+~~~
+
+8. Una vez ya configurado el webpack.config.js en la cual definimos archivos de entrada y de salida, podemos ejecutar el proceso de entrada y de salida con el siguiente comando en el terminal (npx indica que se ejecutara uno de los paquetes ya instalados en este caso el de webpack ):
+
+~~~
+	npx webpack
+~~~
+  
+
+9. Ojo si observas en la terminal existe un warning dado que no hemos definido si estamos en producción o en desarrollo. Para esto podemos indicar en la terminal si es que estamos en mode desarrollo o producción con los siguientes comandos:
+
+~~~	
+	npx webpack -p
+	npx webpack -d
+~~~
+
+10. Hasta aqui solo estamos minificando Javascript, pero tambien podemos minificar HTMl para esto debemos importar el plugins en el webpack.config.js (Recordemos que el plugins esta en package.json). 
+
+~~~	
+	const HtmlWebpackPlugins = require('html-webpack-plugin');
+
+	plugins: [
+
+		new HtmlWebpackPlugins({
+			template: './src/index.html'
+		})
+	]
+ ~~~	
+
+11. Aplicamos el comando de produccion.
+
+ ~~~	
+	npx webpack -d
+ ~~~	
+
+12. Si observamos se genero el HTML vinculado con el JS
+
+13. Tambien podriamos comprimir el HTML para esto visitamos la configuracion del plugins
+	Buscamos en Google "html webpack plugin" La URL es :
+	[URL A PLUGINS HTML WEBPACKS](https://github.com/jantimon/html-webpack-plugin) y buscamos la opción minify y la incorporamos en la configuración del plugins.
+ ~~~
+	{
+	  collapseWhitespace: true,
+	  removeComments: true,
+	  removeRedundantAttributes: true,
+	  removeScriptTypeAttributes: true,
+	  removeStyleLinkTypeAttributes: true,
+	  useShortDoctype: true
+	}
+ ~~~
+
+14. Entonces el archivo `webpack.config.js` quedaría de la siguiente forma:
+
+	//Usamos un modulo de Node llamado path
+	const path               = require('path');
+	const HtmlWebpackPlugins = require('html-webpack-plugin');
+
+~~~
+	module.exports = {
+	entry:{
+		app:'./src/app/index.js'
+	},
+	output:{
+		path: path.resolve(__dirname, 'build'),
+		filename: 'app.bundle.js'
+	},
+	plugins: [
+
+		new HtmlWebpackPlugins({
+			template: './src/index.html',
+			minify:{
+			  collapseWhitespace: true,
+			  removeComments: true,
+			  removeRedundantAttributes: true,
+			  removeScriptTypeAttributes: true,
+			  removeStyleLinkTypeAttributes: true,
+			  useShortDoctype: true
+			}
+		})
+	]
+	}
+~~~
+
+15. Ya estamos conviertiendo el codigo hacia la carpeta build, ahora podemos ordenar la carpeta build como por ejemplo crear la carpeta JS dentro de build, esto se realiza solo agregando en el output en el filename `js/app.bundle.js`.
+
+16. Ahora vemos ejemplo de JavaScript Moderno con FETCH y Llamada asincrona, para eso creamos una clase llamada `Photos`.
+
+~~~
+  // Creamos la clase en el archivo photos.js
+  class Photos {
+    // Creamos el metodo que recupera la clase
+    async getPhotos(){
+      const res    = await fetch('https://jsonplaceholder.typicode.com/photos?_limit=12');
+      const photos = await res.json();
+      return photos;
+    }
+  }
+~~~
+
+17. Exportamos la clase para poder importarla export default Photos.
+
+~~~
+  //Importamos la clase en el index.js
+  import Photos from './photos';
+
+  // Podemos crear una nueva instancia del objeto Photos 
+
+  const photos = new Photos();
+
+  // Como es una funcion asincrona se llama async
+
+  async function main(){
+    console.log(await photos.getPhotos())
+  }
+
+  main();
+~~~
+
+18. No es muy productivo tener que cada ves que realizamos un cambio tener que ejecutar el comando `npx webpack -d` , para evitar esto podemos activar el plugins `webpack-dev-server`. Esto lo realizamos con el comando `npx webpack-dev-server`.
+
+Podemos cambiar el host del server incorporando en el archivo `webpack.config.js` el objeto `devServer`:
+
+~~~
+  devServer:{
+    port:4000
+  }
+~~~
+
+No olvidar que deben re iniciar el server con `npx webpack-dev-server`.
+
+19. Ahora podemos hacer algunas cosas con css, para esto debemos instalar `CSS Loader`, esto lo puedes ver en [CSS LOADER](https://github.com/webpack-contrib/css-loader). No olvidar que css-loader depende de style-loader.
+
+~~~
+  npm install css-loader style-loader
+~~~
+
+Esto nos ayudara a importar desde Javascript el css, ahora esto no es lo ideal para la produccion de una aplicación por lo tanto para separar el css de nuestra aplicación debemos instalar [MINI CSS EXTRACT PLUGINS](https://github.com/webpack-contrib/mini-css-extract-plugin).
+
+20. Ahora configuraremos BABEL, para que funciones BABEL debemos configurarlo em "webpack.config.js" en especifico en las "rules" se debe incorporar el codigo que le inqueque que tome todo archivo JS y este lo interprete BABBEL a una versión de JS antiguo. Ejemplo del código:
+
+~~~
+	{
+        test: /\.js$/,
+   		loader: 'babel-loader'
+	}
+~~~
+
+Además de este codigo debemos tamién configurar en la RAIZ el archivo `.babelrc.json` no olvidar que en la documentación exiten más formas de activar a BABEL,
+
+~~~	
+	{
+  		"presets": ["@babel/preset-env"]
+	}
+~~~
+
+21. Para poder testear utilizaremos una sintaxtis de JavaScript Moderno para esto en el buscador realizaremos la siguiente busqueda "Javascript ecmascript 10"
 
 
-
-
-
-
-
-
-
-
-
+# RESUMEN
+~~~	
+	// Produccion
+		npx webpack -p
+	// Desarrollo
+		npx webpack -d
+	// Activar el servidor
+		npx webpack-dev-server
+~~~	
 </section>

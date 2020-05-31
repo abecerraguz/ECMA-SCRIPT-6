@@ -12,10 +12,10 @@
    npm install o resumido npm i.
 
 7- Paquetes que requerimos:
-	Webpack, Webpack es un empaquetador de Modulo, podemos tener un servidor de desarro, te permite tomar los archivos del Front End como HTML, CSS, SASS, JAVASCRIPT, Imagenes y llevarlas de producción a Desarrollo. URL https://webpack.js.org/
+	Webpack es un empaquetador de Modulo, podemos tener un servidor de desarro, te permite tomar los archivos del Front End como HTML, CSS, SASS, JAVASCRIPT, Imagenes y llevarlas de producción a Desarrollo. URL https://webpack.js.org/
 
 	Entonces instalaremos Webpack y otras dependencias como webpack-cli con eso estamos listos con Webpack, pero necesitamos Babel, para instalar babel debemos ir a la URL de Babel https://babeljs.io, luego iremos a la sección de Docs y luego iremos a la opción de "User Guide", en esta opción debemos instalar , @babel/core, @babel/cli, @babel/preset-env, el primero es en si babel, el segundo @babel/cli 
-	npm i webpack webpack-cli es la forma que tenemos para interactuar con babel desde la terminal, el ultimos es la forma que nos permite escribir con los ultimos estandares de Javascript o sea podemos trabajar con import clase funciones flecha etc. Ojo como estamos instalando Webpack podemos olvidar @babel/cli y sólo instalaremos 
+	npm i webpack webpack-cli es la forma que tenemos para interactuar con babel desde la terminal, el ultimo es la forma que nos permite escribir con los ultimos estandares de Javascript o sea podemos trabajar con import clases funciones de flecha etc. Ojo como estamos instalando Webpack podemos olvidar @babel/cli y sólo instalaremos 
 
 	Tambien podemos instalar async/await para trabajar con funciones asincronas como Fetch. Para poder trabajar webpack con babel debemos instalar babel-loader, con esto ya tendriamos para trabajar con JavaScript Moderno. Pero podemos agregar otros plugins, por ejemplo cuando pasemos nuestro poryecto de producción a desarrollo necesitaremos que nuestro Html se minifique para esto se debe instalar otro modulo "html-webpack-plugin" y para finalizar necesitamos un servidor de desarrollo para esto debemos agregar "webpack-dev-server". Con esto ya tememos todos nuestros modulos requeridos.
 
@@ -24,7 +24,7 @@
 8- Ahora necesitamos configurar nuestro proyecto para esto en la raiz creamos un archivo llamado
    webpack.config.js , esto es para configurar a webpack.
 
-9- También debemos configurar a babel para esto hay varias formas pero lo realizaremos creando el  	  archivo .babelrc , ambos archivos me serviaran para configurar webpack y babel.
+9- También debemos configurar a babel para esto hay varias formas pero lo realizaremos creando el archivo .babelrc , ambos archivos me serviaran para configurar webpack y babel.
 
    webpack.config.js
 
@@ -155,7 +155,7 @@ npm install css-loader style-loader
 
 Esto nos ayudara a importar desde Javascript el css, ahora esto no es lo ideal para la produccion de una aplicación por lo tanto para separar el css de nuestra aplicación debemos instalar "https://github.com/webpack-contrib/mini-css-extract-plugin".
 
-21. Ahora configuraremos BABEL, para que funciones BABEL debemos configurarlo em "webpack.config.js" en especifico en las "rules" se debe incorporar el codigo que le inqueque que tome todo archivo JS y este lo interprete BABBEL a una versión de JS antiguo. Ejmplo del código:
+21. Ahora configuraremos BABEL, para que funciones BABEL debemos configurarlo em "webpack.config.js" en especifico en las "rules" se debe incorporar el codigo que le inqueque que tome todo archivo JS y este lo interprete BABBEL a una versión de JS antiguo. Ejemplo del código:
 
 	{
         test: /\.js$/,

@@ -1,15 +1,13 @@
-@import './sass/vendors/bootstrap-4.4.1/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap";
 
-// @import './sass/abstracts/variables.scss';
-// @import './sass/abstracts/mixins.scss';
+// Required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
-// @import './sass/base/base.scss';
-// @import './sass/base/reset.scss';
-// @import './sass/base/typography.scss';
-
-// @import './sass/layout/header.scss';
-// @import './sass/layout/main-section.scss';
-// @import './sass/layout/forms.scss';
-
-// @import './sass/components/buttons.scss';
-// @import './sass/components/inputs.scss';
+// Optional
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
